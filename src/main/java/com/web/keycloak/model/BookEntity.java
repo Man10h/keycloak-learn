@@ -9,8 +9,20 @@ public class BookEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private UserEntity userEntity;
+
     private String title;
     private String author;
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
 
     public Long getId() {
         return id;

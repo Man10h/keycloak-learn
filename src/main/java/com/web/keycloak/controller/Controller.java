@@ -1,22 +1,32 @@
 package com.web.keycloak.controller;
 
 import com.web.keycloak.model.BookEntity;
+import com.web.keycloak.model.UserEntity;
 import com.web.keycloak.service.BookService;
+import com.web.keycloak.service.TokenService;
+import com.web.keycloak.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class Controller {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/public")
     public String publicPage() {
@@ -51,4 +61,11 @@ public class Controller {
     public String addBook(@RequestBody BookEntity book) {
         return bookService.addBook(book);
     }
+
+    @GetMapping("/user")
+    public ResponseEntity<UserEntity> getUser(@AuthenticationPrincipal OidcUser oidcUser) {
+        return ResponseEntity.ok(userService.getUser(oidcUser));
+    }
+
+
 }

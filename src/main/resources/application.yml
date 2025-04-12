@@ -5,6 +5,17 @@ spring:
     url: jdbc:mysql://127.0.0.1:3307/book
     username: root
     password: Manh2004
+  jpa:
+    hibernate:
+      ddl-auto: update
+    #      none, update, auto-update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        enable_lazy_load_no_trans: true
+        format_sql: true
+    show-sql: true
+
   security:
     oauth2:
       client:
@@ -13,6 +24,7 @@ spring:
             client-id: keycloak
             client-secret: 7nGn5k8SFb6Ybg0tOwgsFfxy9EuC76TT
             scope:
+              - openid
               - email
               - profile
             authorization-grant-type:
@@ -24,3 +36,4 @@ spring:
       resource server:
         jwt:
           issuer-uri: http://localhost:8080/realms/my-realm
+secretKey: ueKZ88pnk6JJSaiu8IqMPURPjcw04HF4gI/MiyH1cbA=

@@ -20,7 +20,6 @@ public class KeycloakJwtConverter implements Converter<Jwt, Collection<GrantedAu
         Map<String, Object> realmAccess = source.getClaimAsMap("realm_access");
         if (MapUtils.isNotEmpty(realmAccess)) {
             List<String> realmRoles = (List<String>) realmAccess.get("roles");
-
             return realmRoles.stream()
                     .map(rn -> new SimpleGrantedAuthority("ROLE_" + rn))
                     .collect(Collectors.toList());
